@@ -28,5 +28,40 @@
         ]
     });
 </script>
+
+
+<?php
+
+require 'vendor/autoload.php';
+use Intervention\Image\ImageManager;
+
+$dir = __DIR__ . '/tiles/';
+$img = new ImageManager();
+$img = $img->canvas(6144, 5376);  // 6144 x 5376 px
+
+$n  = 1;
+$yn = 0;
+for ($y = 84726; $y > 84705; $y--) {      // 21 tiles
+    $xn = 0;
+    for ($x = 77368; $x < 77392; $x++) {  // 24 tiles
+
+        $filename = "x$xn-y$yn.png";
+        echo $n++ . " - $filename<br>";
+
+        file_put_contents(
+            $dir . $filename,
+            fopen("http://tms1.visicom.ua/2.0.0/planet3/base_ru/17/$x/$y.png", 'r')
+        );
+
+        $img->insert($dir . $filename, 'top-left', $xn, $yn);
+        $xn += 256;
+    }
+    $yn += 256;
+}
+
+$img->save(__DIR__ . '/map.png');
+
+?>
+
 </body>
 </html>
