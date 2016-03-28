@@ -41,9 +41,9 @@ $img = $img->canvas(6144, 5376);  // 6144 x 5376 px
 
 $n  = 1;
 $yn = 0;
-for ($y = 84726; $y > 84705; $y--) {      // 21 tiles
+for ($y = 84726; $y > 84705; $y--) {      // 21 tiles (y-axis)
     $xn = 0;
-    for ($x = 77368; $x < 77392; $x++) {  // 24 tiles
+    for ($x = 77368; $x < 77392; $x++) {  // 24 tiles (x-axis)
 
         $filename = "x$xn-y$yn.png";
         echo $n++ . " - $filename<br>";
