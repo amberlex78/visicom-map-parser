@@ -7,15 +7,9 @@
     <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
 </head>
 <body>
-<div id="map" style="width: 1024px; height: 768px; clear: both;"></div>
+<div id="map" style="width: 1024px; height: 720px; clear: both;"></div>
 <script>
     var map = new L.Map('map', {
-
-        // Golaya Pristan
-        // Coordinates of Tiles
-        // top  = 84726; bottom = 84705
-        // left = 77368; right  = 77392
-
         center: new L.LatLng(46.5225204, 32.5313784),
         zoom: 14,
         layers: [
@@ -29,21 +23,30 @@
     });
 </script>
 
-
 <?php
+
+// Golaya Pristan
+// Coordinates of Tiles
+$yFromTile = 84726; // top    84726
+$yToTile   = 84703; // bottom 84705
+$xFromTile = 77367; // left   77368
+$xToTile   = 77392; // right  77392
+
+$widthCanvas  = ($xToTile - $xFromTile) * 256;
+$heightCanvas = ($yFromTile - $yToTile) * 256;
 
 require 'vendor/autoload.php';
 use Intervention\Image\ImageManager;
 
 $dir = __DIR__ . '/tiles/';
 $img = new ImageManager();
-$img = $img->canvas(6144, 5376);  // 6144 x 5376 px
+$img = $img->canvas($widthCanvas, $heightCanvas);
 
 $n  = 1;
 $yn = 0;
-for ($y = 84726; $y > 84705; $y--) {      // 21 tiles (y-axis)
+for ($y = $yFromTile; $y > $yToTile; $y--) {
     $xn = 0;
-    for ($x = 77368; $x < 77392; $x++) {  // 24 tiles (x-axis)
+    for ($x = $xFromTile; $x < $xToTile; $x++) {
 
         $filename = "x$xn-y$yn.png";
         echo $n++ . " - $filename<br>";
