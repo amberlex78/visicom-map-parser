@@ -62,7 +62,7 @@ for ($y = $yFromTile; $y > $yToTile; $y--) {
     $yn += 256;
 }
 
-$img->save(__DIR__ . '/map.png');
+$img->save(__DIR__ . '/map/map.png');
 
 ?>
 
